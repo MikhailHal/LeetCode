@@ -12,6 +12,7 @@ class ListNode:
         self.val = val
         self.next = next
 class Solution:
+    '''
     def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
         nodeIndex = 0
         tempNodeList = []
@@ -24,4 +25,13 @@ class Solution:
                 currentNode = currentNode.next
                 nodeIndex += 1
         return tempNodeList[ceil(nodeIndex/2)]
+    '''
+    
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        fast = slow = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
 # @lc code=end
