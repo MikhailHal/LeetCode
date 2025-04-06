@@ -21,6 +21,7 @@ class Solution:
                 curr /= nums[left]
                 left += 1
         print(ans)
+        return ans
         """
         if k <= 1:  # Edge case: no subarray can have product < 1
             return 0
@@ -42,7 +43,6 @@ class Solution:
             # (only after ensuring the window is valid)
             ans += right - left + 1
         
-        return ans
         return ans
 # @lc code=end
 Solution().numSubarrayProductLessThanK(nums = [1,2,3], k = 0)
