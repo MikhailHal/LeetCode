@@ -1,5 +1,6 @@
 class Solution:
     def checkIfPangram(self, sentence: str) -> bool:
+        """
         dict = {chr(ord('a') + i): 0 for i in range(26)}
         for c in sentence:
             dict[c] = dict[c] + 1
@@ -8,5 +9,7 @@ class Solution:
             if v == 0:
                 return False
         return True
+        """
+        return len(set(sentence)) == 26
     
 print(Solution().checkIfPangram("leetcode"))
