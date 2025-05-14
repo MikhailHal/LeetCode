@@ -8,7 +8,6 @@
 class Solution:
     def removeDuplicates(self, s: str) -> str:
         stack = []
-        ans = ""
         for c in s:
             if len(stack) > 0 and c == stack[-1]:
                 stack.pop()
