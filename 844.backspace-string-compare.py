@@ -7,22 +7,44 @@
 # @lc code=start
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
-        s_stack = []
-        t_stack = []
-        for c in s:
-            if c == '#':
-                if len(s_stack) > 0:
-                    s_stack.pop()
-            else:
-                s_stack.append(c)
+        i = len(s) - 1
+        j = len(t) - 1
+        s_skip = t_skip = 0
 
-        for c in t:
-            if c == '#':
-                if len(t_stack) > 0:
-                    t_stack.pop()
-            else:
-                t_stack.append(c)
+        while i >=0 or j >= 0:
+            # find a valid character in s
+            while i >= 0:
+                if s[i] == '#':
+                    i -= 1
+                    s_skip += 1
+                elif s_skip > 0:
+                    i -= 1
+                    s_skip -= 1
+                else:
+                    break
+
+            # find a valid character in t
+            while j >= 0:
+                if t[j] == '#':
+                    j -= 1
+                    t_skip += 1
+                elif t_skip > 0:
+                    j -= 1
+                    t_skip -= 1
+                else:
+                    break
         
-        return s_stack == t_stack
+            # if one string is exhausted
+            if (i < 0) != (j < 0):
+                return False
+            
+            if i >= 0 and j >= 0 and s[i] != t[j]:
+                return False
+            
+            # decrement each index
+            i -= 1
+            j -= 1
+        
+        return True
 # @lc code=end
-print(Solution().backspaceCompare(s = "y#fo##f", t = "y#f#o##f"))
+print(Solution().backspaceCompare(s = "a##cab##", t = "a##c"))
