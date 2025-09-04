@@ -9,15 +9,16 @@ from typing import List
 from collections import defaultdict
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        hashmap = defaultdict(int)
-        ans = prefixSum = 0
-        hashmap[0] = 1
+        hm = defaultdict(int)
+        hm[0] = 1
+        total = 0
+        ans = 0
         for num in nums:
-            prefixSum += num
-            ans += hashmap[prefixSum-k]
-            hashmap[prefixSum] += 1
-        print(ans)
+            total += num
+            if hm.get(total - k):
+                ans += hm.get(total - k)
+            hm[total] += 1
         return ans
 # @lc code=end
 
-Solution().subarraySum(nums = [1,1,1], k = 2)
+Solution().subarraySum(nums = [1], k = 0)
