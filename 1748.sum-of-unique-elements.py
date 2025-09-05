@@ -17,8 +17,8 @@ class Solution:
                 map[num] += 1
         
         for key in map:
-            if map[key] < 2:
-                ans += map[key] * int(key)
+            if map[key] == 1:
+                ans += key
         return ans
 # @lc code=end
 
