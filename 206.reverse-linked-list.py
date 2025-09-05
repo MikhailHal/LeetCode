@@ -26,18 +26,14 @@ def create_linked_list(elements) -> Optional[ListNode]:
     return head
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if not head or not head.next:
-            return head
-        
         prev = None
-        current = head
-        while current:
-            next_node = current.next
-            current.next = prev
-            prev = current
-            current = next_node
+        curr = head
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
         return prev
-
 # @lc code=end
-node_list = create_linked_list([1,2,3,4,5])
-Solution().reverseList(node_list)
+node_list = create_linked_list([1,2,3])
+print(Solution().reverseList(node_list))
