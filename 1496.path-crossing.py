@@ -7,8 +7,9 @@
 # @lc code=start
 class Solution:
     def isPathCrossing(self, path: str) -> bool:
-        visited = {(0,0) : 1}
+        visited = set()
         point = [0,0]
+        visited.add((point[0], point[1]))
         for direction in path:
             # 座標を移動
             if direction == 'N':
@@ -20,19 +21,13 @@ class Solution:
             elif direction == 'W':
                 point[0] -= 1
             
-            # 現在の位置を記録
-            tupled = (point[0], point[1])
-            if not tupled in visited:
-                visited[tupled] = 1
-            else:
-                visited[tupled] += 1
-            
-            # 交差した箇所があるかどうか確認
-            if visited[tupled] >= 2:
+            if (point[0], point[1]) in visited:
                 return True
+            else:
+                visited.add((point[0], point[1]))
         return False
 
         
 # @lc code=end
 
-print(Solution().isPathCrossing("NES"))
+print(Solution().isPathCrossing("NESW"))
