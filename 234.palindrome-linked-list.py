@@ -21,19 +21,37 @@ def make_linked_list(nums: list[int]) -> ListNode:
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
         slow = fast = head
-        count = 0
         prev = None
         curr = None
+
+        # fast/slow使って中央部ノードを走査
         while fast and fast.next:
-            # Noneが入る可能性あり
             fast = fast.next.next
             slow = slow.next
-            count += 1
-        # 偶奇で反転開始位置ポインタが異なる
-        if 
+        
+        # 反転開始位置ポインタセット
+        if fast == None:
+            curr = slow
+        else:
+            curr = slow.next
+
+        # 後半部分を反転
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+
+        # 各リストの回文チェック
+        while prev:
+            if head.val != prev.val:
+                return False
+            head = head.next
+            prev = prev.next
+        return True
 
 # @lc code=end
 #print(Solution().removeNthFromEnd(listNodes, 2))
-listNodes = make_linked_list([1,2,2,1])
 listNodes = make_linked_list([1,2,1])
+#listNodes = make_linked_list([1,2,1,None])
 print(Solution().isPalindrome(listNodes))
