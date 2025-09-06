@@ -9,16 +9,8 @@ from typing import List
 from collections import defaultdict
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        hm = defaultdict(int)
-        hm[0] = 1
-        total = 0
-        ans = 0
-        for num in nums:
-            total += num
-            if hm.get(total - k):
-                ans += hm.get(total - k)
-            hm[total] += 1
-        return ans
+        # 復習のためコードは消しました。前の回答みたければGitHub見て
+        pass
 # @lc code=end
 
 Solution().subarraySum(nums = [1], k = 0)
