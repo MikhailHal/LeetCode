@@ -36,7 +36,7 @@
 - dummy nodeが必要になるケース
 - while条件で境界を正しく処理する方法
 
-### 234. Palindrome Linked List（進行中）
+### 234. Palindrome Linked List
 **本質理解の判断基準:**
 - Fast/Slowで中央を検出する仕組み
 - 奇数長リストでの中央ノードの扱い
