@@ -8,32 +8,34 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
-        brancketMap = {
-            "(" : ")",
-            "{" : "}",
-            "[" : "]"
-        }
-
-        if len(s) <= 1:
-            return False
-
-        for char in s:
-            if char == '(' or char == '{' or char == '[':
-                stack.append(char)
+        
+        for c in s:
+            if c == '[' or c == '(' or c == '{':
+                stack.append(c)
             else:
-                if len(stack) <= 0:
+                if not stack:
                     return False
-                
-                if brancketMap[stack[-1]] == char:
-                    stack.pop()
+                opened_bracket = stack.pop()
+                if opened_bracket == '(' and c == ')':
+                    continue
+                elif opened_bracket == '[' and c == ']':
+                    continue
+                elif opened_bracket == '{' and c == '}':
+                    continue
                 else:
                     return False
-                
-        if len(stack) <= 0:
-            return True
-        else:
+        if stack:
             return False
+        else:
+            return True
         
         
 # @lc code=end
-print(Solution().isValid("()"))
+print(Solution().isValid("((")) # false
+print(Solution().isValid("()[]")) # true
+print(Solution().isValid("()")) # true
+print(Solution().isValid("(]")) # false
+print(Solution().isValid("(")) # false
+print(Solution().isValid("[]")) # true
+print(Solution().isValid("([])")) # true
+print(Solution().isValid("([)]")) # false
