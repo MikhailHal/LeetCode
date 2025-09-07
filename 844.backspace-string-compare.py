@@ -7,44 +7,27 @@
 # @lc code=start
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
-        i = len(s) - 1
-        j = len(t) - 1
-        s_skip = t_skip = 0
-
-        while i >=0 or j >= 0:
-            # find a valid character in s
-            while i >= 0:
-                if s[i] == '#':
-                    i -= 1
-                    s_skip += 1
-                elif s_skip > 0:
-                    i -= 1
-                    s_skip -= 1
-                else:
-                    break
-
-            # find a valid character in t
-            while j >= 0:
-                if t[j] == '#':
-                    j -= 1
-                    t_skip += 1
-                elif t_skip > 0:
-                    j -= 1
-                    t_skip -= 1
-                else:
-                    break
+        stack_c = []
+        stack_t = []
+        for c in s:
+            if c != '#':
+                stack_c.append(c)
+            else:
+                if stack_c:
+                    stack_c.pop()
         
-            # if one string is exhausted
-            if (i < 0) != (j < 0):
-                return False
-            
-            if i >= 0 and j >= 0 and s[i] != t[j]:
-                return False
-            
-            # decrement each index
-            i -= 1
-            j -= 1
+        for c in t:
+            if c != '#':
+                stack_t.append(c)
+            else:
+                if stack_t:
+                    stack_t.pop()
         
-        return True
+        return ''.join(stack_c) == ''.join(stack_t)
 # @lc code=end
-print(Solution().backspaceCompare(s = "a##cab##", t = "a##c"))
+print(Solution().backspaceCompare(s = "a#c", t = "b")) # true
+print(Solution().backspaceCompare(s = "ab#c", t = "ad#c")) # true
+print(Solution().backspaceCompare(s = "a#b", t = "a#b")) # true
+print(Solution().backspaceCompare(s = "#", t = "#")) # true
+print(Solution().backspaceCompare(s = "a#", t = "b")) # false
+print(Solution().backspaceCompare(s = "a", t = "b#")) # false
