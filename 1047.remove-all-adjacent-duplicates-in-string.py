@@ -9,11 +9,18 @@ class Solution:
     def removeDuplicates(self, s: str) -> str:
         stack = []
         for c in s:
-            if len(stack) > 0 and c == stack[-1]:
-                stack.pop()
-            else:
+            if not stack:
                 stack.append(c)
+            else:
+                top_char = stack.pop()
+                if c != top_char:
+                    stack.append(top_char)
+                    stack.append(c)
         return ''.join(stack)
 # @lc code=end
 
+print(Solution().removeDuplicates("abab"))
 print(Solution().removeDuplicates("abbaca"))
+print(Solution().removeDuplicates("a"))
+print(Solution().removeDuplicates("aa"))
+print(Solution().removeDuplicates("azxxzy"))
