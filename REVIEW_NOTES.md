@@ -20,15 +20,9 @@
 - Write Pointerパターンとは何か
 - 最初に試したアプローチの計算量問題
 - in-place操作での正しい実装方法
+9/15 X
 
 ## 🔗 Linked List
-
-### 206. Reverse Linked List
-**本質理解の判断基準:**
-- prev/curr/nextの3つのポインタの役割
-- 「想定解での前」という考え方
-- 返り値の選択理由
-- なぜ段階的反転が必要か
 
 ### 19. Remove Nth Node From End of List  
 **本質理解の判断基準:**
