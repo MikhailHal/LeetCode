@@ -21,14 +21,25 @@ def make_linked_list(nums: list[int]) -> ListNode:
 
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        # 復習のためコードは消しました。前の回答みたければGitHub見て
-        pass
-
+        dummy = ListNode(-1)
+        dummy.next = head
+        fast = dummy
+        slow = dummy
+        for _ in range(n):
+            fast = fast.next
+        while fast.next:
+            fast = fast.next
+            slow = slow.next
+        
+        slow.next = slow.next.next
+        return dummy.next
 
 # @lc code=end
-#listNodes = make_linked_list([1,2,3,4,5])
-#print(Solution().removeNthFromEnd(listNodes, 1))
-#listNodes = make_linked_list([1,2,3,4,5])
-#print(Solution().removeNthFromEnd(listNodes, 2))
+listNodes = make_linked_list([1,2])
+print(Solution().removeNthFromEnd(listNodes, 2))
 listNodes = make_linked_list([1,2,3,4,5])
+print(Solution().removeNthFromEnd(listNodes, 1))
+listNodes = make_linked_list([1,2,3,4,5])
+print(Solution().removeNthFromEnd(listNodes, 2))
+listNodes = make_linked_list([1,2,3,4])
 print(Solution().removeNthFromEnd(listNodes, 2))
