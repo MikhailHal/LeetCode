@@ -5,7 +5,7 @@
 #
 
 # @lc code=start
-from typing import Optional, List
+from typing import Optional
 from collections import deque
 
 class TreeNode:
@@ -14,22 +14,16 @@ class TreeNode:
         self.left = left
         self.right = right
 class Solution:
-    def dfs(self, node: TreeNode) -> TreeNode:
-        if not node:
-            return None
-        
-        r_node = self.dfs(node.left)
-        l_node = self.dfs(node.right)
-
-        node.right = r_node
-        node.left = l_node
-        return node
-
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        if not root:
-            return None
-        self.dfs(root)
-        return root
+       if not root:
+           return None
+       left = root.right
+       right = root.left
+       root.left = left
+       root.right = right
+       self.invertTree(root.left)
+       self.invertTree(root.right)
+       return root
         
 # @lc code=end
 
