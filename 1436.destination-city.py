@@ -8,8 +8,13 @@
 from typing import List
 class Solution:
     def destCity(self, paths: List[List[str]]) -> str:
-        # 復習のためコードは消しました。前の回答みたければGitHub見て
-        pass
+        set_a = set()
+        set_b = set()
+        for path in paths:
+            set_a.add(path[0])
+            set_b.add(path[1])
+        return ''.join(set_b - set_a)
 # @lc code=end
 
 print(Solution().destCity([["London","New York"]]))
+print(Solution().destCity([["London","New York"],["New York","Lima"],["Lima","Sao Paulo"]]))
