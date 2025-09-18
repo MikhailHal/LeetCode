@@ -8,16 +8,14 @@
 from typing import List
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        n = len(nums)
-        expected_total = actual_total = 0
+        expect_xor = actual_xor = 0
+        for i in range(len(nums)+1):
+            expect_xor ^= i
         
-        for i in range(n+1):
-            expected_total += i
-
         for num in nums:
-            actual_total += num
-
-        return expected_total - actual_total
+            actual_xor ^= num
+        
+        return expect_xor ^ actual_xor
 # @lc code=end
 
 print(Solution().missingNumber([3,0,1])) # 2
