@@ -8,12 +8,9 @@
 from typing import List
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        occured = set()
-        for i in range(len(nums) - 1, -1, -1):
-            if nums[i] in occured:
+        for i in range(len(nums) - 1, 0, -1):
+            if nums[i] == nums[i-1]:
                 nums.pop(i)
-            else:
-                occured.add(nums[i])
         return len(nums)
 # @lc code=end
 
