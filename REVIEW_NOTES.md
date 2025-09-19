@@ -24,6 +24,7 @@
 
 ### 88. Merge Sorted Array
 ### 80. Remove Duplicates from Sorted Array II
+### 189. Rotate Array
 
 ## 🔗 Linked List
 
