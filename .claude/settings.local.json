@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Read(/Users/haruto/Desktop/**)",
+      "Read(/Users/haruto/Desktop/**)",
+      "Read(/Users/haruto/Desktop/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

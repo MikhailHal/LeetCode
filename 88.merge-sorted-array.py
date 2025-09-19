@@ -11,10 +11,6 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        sorted_merged_array = sorted(nums1[:m] + nums2)
-        for i, elem in enumerate(sorted_merged_array):
-            nums1[i] = elem
-        return None
         
 # @lc code=end
 
