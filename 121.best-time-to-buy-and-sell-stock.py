@@ -8,14 +8,7 @@
 from typing import List
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        buy = float('inf')
-        ans = 0
-        for price in prices:
-            buy = min(buy, price)
-            profit = price - buy
-            ans = max(ans, profit)
-        print(ans)
-        return ans
+        return 
 # @lc code=end
 
 Solution().maxProfit(prices = [2,4,1])

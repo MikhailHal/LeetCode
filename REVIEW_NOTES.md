@@ -25,6 +25,7 @@
 ### 88. Merge Sorted Array
 ### 80. Remove Duplicates from Sorted Array II
 ### 189. Rotate Array
+### 121. Best Time to Buy and Sell Stock
 
 ## 🔗 Linked List
 
