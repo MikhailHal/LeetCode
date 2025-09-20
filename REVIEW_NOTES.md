@@ -26,6 +26,7 @@
 ### 80. Remove Duplicates from Sorted Array II
 ### 189. Rotate Array
 ### 121. Best Time to Buy and Sell Stock
+### 205. Isomorphic Strings
 
 ## 🔗 Linked List
 
