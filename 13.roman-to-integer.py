@@ -7,7 +7,7 @@
 # @lc code=start
 class Solution:
     def romanToInt(self, s: str) -> int:
-        sum = 0
+        ans = 0
         skip = False
         roman_map = {
             "I" : 1,
@@ -30,13 +30,15 @@ class Solution:
             if skip:
                 skip = False
                 continue
-            # 今回の数字がIVなど特殊ケースの場合
-            if i+1 < len(s) and ''.join(s[i] + s[i+1]) in roman_map:
-                sum += roman_map[''.join(s[i] + s[i+1])]
-                skip = True
-                continue
-            sum += roman_map[c]
-        return sum
+            if i + 1 < len(s):
+                two_char = ''.join(s[i] + s[i+1])
+                # 今回の数字がIVなど特殊ケースの場合
+                if two_char in roman_map:
+                    ans += roman_map[two_char]
+                    skip = True
+                    continue
+            ans += roman_map[c]
+        return ans
 
         
 # @lc code=end
