@@ -8,15 +8,14 @@
 from typing import List
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        dp = [0] * len(nums)
-        dp[0] = ans = nums[0]
+        current_sum = ans = nums[0]
         for i in range(1, len(nums)):
-            should_restart = nums[i] > nums[i] + dp[i-1]
+            should_restart = nums[i] > nums[i] + current_sum
             if should_restart:
-                dp[i] = nums[i]
+                current_sum = nums[i]
             else:
-                dp[i] = nums[i] + dp[i-1]
-            ans = max(ans, dp[i])
+                current_sum = nums[i] + current_sum
+            ans = max(ans, current_sum)
         return ans
 
 # @lc code=end
