@@ -27,22 +27,7 @@
 ### 189. Rotate Array
 ### 121. Best Time to Buy and Sell Stock
 ### 205. Isomorphic Strings
-
-## 🔗 Linked List
-
-### 19. Remove Nth Node From End of List  
-**本質理解の判断基準:**
-- Fast/Slowポインタの位置関係理論
-- dummy nodeが必要になるケース
-- while条件で境界を正しく処理する方法
-
-### 234. Palindrome Linked List
-**本質理解の判断基準:**
-- Fast/Slowで中央を検出する仕組み
-- 奇数長リストでの中央ノードの扱い
-- なぜ後半を反転するのか
-- 奇偶判定の効率的な方法できる）
-- dp初期化の重要性（0円=0枚、他は∞）
+### 55. jump-game
 
 
 ## 📊 Array & Intervals
