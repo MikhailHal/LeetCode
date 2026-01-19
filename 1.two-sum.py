@@ -6,18 +6,21 @@
 
 """
 部分問題
-・nums[i]に対する、targetを構成するための補数(complement)が存在するかどうか
+・nums[i]に対する補数(complement)が、過去に出現したか？
 
-状態
-・補数インデックス辞書(キー：nums[i] / バリュー：i)
+状態（最小化を意識）
+・{数値: index} の辞書1つ
+・補数は保存不要（target - num で都度計算できる）
 
- 漸化式
+状態遷移
+    complement = target - num
     if complement in seen:
-        return [i, seen[complement]]
-    seen[num] = i
+        return [seen[complement], i]
+    seen[num] = i  # 先にチェック、後で追加
 
-例外
-・numsのサイズが2の場合
+境界・例外（部分問題が壊れるケース）
+・同じ要素を2回使う → 「先にチェック、後で追加」の順序で回避
+・解なし → 問題の制約で必ず1つ存在が保証
 
 """
 # @lc code=start
