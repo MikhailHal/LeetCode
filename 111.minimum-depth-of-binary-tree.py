@@ -13,26 +13,48 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+
+"""
+・部分問題
+    ・現ノードは左右どちらかの子を持つか？
+        ・Yes：再帰
+        ・No：深さ更新
+
+・例外
+    ・ノードが存在しない(null)
+    ・子を持たないノードしかない場合(rootのみ)
+
+・状態
+    ・深さの最小値
+    ・現在の深さ
+
+・状態遷移
+    if not node.right and not node.left:
+        depth = min(depth, 現在の深さ)
+    if node.right:
+        dfs(node.right)
+    if node.left:
+        dfs(node.left)
+"""
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
+        min_depth = float('inf')
+        def __dfs(node: TreeNode, curr_depth: int):
+            nonlocal min_depth
+            if not node.right and not node.left:
+                min_depth = min(min_depth, curr_depth)
+                return
+
+            if node.right:
+                __dfs(node.right, curr_depth+1)
+            if node.left:
+                __dfs(node.left, curr_depth+1)
+            return
+        
         if not root:
             return 0
-        queue = deque([root])
-        depth = 0
-
-        while queue:
-            level_size = len(queue)
-            depth += 1
-            for _ in range(level_size):
-                node = queue.popleft()
-                if not node.left and not node.right:
-                    return depth
-
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-        return depth
+        __dfs(root, 1)
+        return min_depth
 
 # @lc code=end
 
