@@ -7,36 +7,29 @@
 # @lc code=start
 """
 ・部分問題(メイン)
-    ・g(0,0)から値が1のマスのみ走査開始
-    ・当該マスが巡回済みの場合はスキップ
-    ・4方向にdfsを行い1の数をカウント
+    ・全マスをループ
+    ・各マスでdfsを呼び、面積の最大値を更新
+
 ・部分問題(dfs)
-    目的：当該領域時点における領域サイズを返却
-    引数：行位置(r), 列位置(c), 現在の領域(curr_area)
-    ・curr_celが範囲外or走査済みor1以外の場合は終了
-    ・curr_areaをインクリメント
-    ・走査済みとしてマーク
-    ・4方向にdfs実施
+    目的：現在マスを含む島の面積を返却
+    引数：行位置(r), 列位置(c)
+    ・範囲外 or 水 or 訪問済み → 0を返す
+    ・訪問済みとしてマーク
+    ・自分(1) + 4方向のdfs結果を返す
 
 ・例外
-    ・マスが1つのみ
-    ・値が1のマスがない
+    ・マスが1つのみ → dfs内で処理される
+    ・値が1のマスがない → dfsが全て0を返す
 
 ・状態
     ・最高領域サイズ(max_area)：int
-    ・現時点での領域サイズ(curr_area)：int
     ・巡回済みか否かの判定(seen)：List[List[bool]]
 
 ・状態遷移
-    if seen[r][c] == True or 範囲外:
-        return curr_area
-    curr_area += 1
+    if 範囲外 or grid[r][c] != 1 or seen[r][c]:
+        return 0
     seen[r][c] = True
-    curr_area = dfs(grid[r-1][c], curr_area)
-    curr_area = dfs(grid[r+1][c], curr_area)
-    curr_area = dfs(grid[r][c-1], curr_area)
-    curr_area = dfs(grid[r][c+1], curr_area)
-    return curr_area
+    return 1 + dfs(r-1,c) + dfs(r+1,c) + dfs(r,c-1) + dfs(r,c+1)
 """
 from typing import List
 class Solution:
@@ -46,34 +39,23 @@ class Solution:
         max_area = 0
         seen = [[False] * max_c for _ in range(max_r)]
 
-        def __calcCurrentArea(r: int, c: int, curr_area: int) -> int:
+        def __calcCurrentArea(r: int, c: int) -> int:
             nonlocal max_c, max_r, seen
 
             if r < 0 or r >= max_r or c < 0 or c >= max_c:
-                return curr_area
+                return 0
             if grid[r][c] != 1:
-                return curr_area
+                return 0
             if seen[r][c] == True:
-                return curr_area
+                return 0
             
-            curr_area += 1
             seen[r][c] = True
-            curr_area = __calcCurrentArea(r-1, c, curr_area)
-            curr_area = __calcCurrentArea(r+1, c, curr_area)
-            curr_area = __calcCurrentArea(r, c-1, curr_area)
-            curr_area = __calcCurrentArea(r, c+1, curr_area)
-            return curr_area
+            return 1 + __calcCurrentArea(r-1, c) + __calcCurrentArea(r+1, c) + __calcCurrentArea(r, c-1) + __calcCurrentArea(r, c+1)
         
         for r in range(max_r):
             for c in range(max_c):
                 if grid[r][c] == 1 and seen[r][c] == False:
-                    curr_area = 1
-                    seen[r][c] = True
-                    curr_area = __calcCurrentArea(r-1, c, curr_area)
-                    curr_area = __calcCurrentArea(r+1, c, curr_area)
-                    curr_area = __calcCurrentArea(r, c-1, curr_area)
-                    curr_area = __calcCurrentArea(r, c+1, curr_area)
-                    max_area = max(max_area, curr_area)
+                    max_area = max(__calcCurrentArea(r,c), max_area)
         return max_area
                     
         
