@@ -34,7 +34,8 @@ from collections import deque
 """
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        fresh_orange = ans = 0
+        fresh_orange = 0
+        ans = -1
         max_row = len(grid)
         max_column = len(grid[0])
         queue = deque()
@@ -60,8 +61,7 @@ class Solution:
                     __rotten(r + 1, c)
                     __rotten(r, c - 1)
                     __rotten(r, c + 1)
-                if len(queue) > 0:
-                    ans += 1
+                ans += 1
             
             if fresh_orange > 0:
                 ans = -1
@@ -73,6 +73,9 @@ class Solution:
                     fresh_orange += 1
                 if grid[r][c] == 2:
                     queue.append((r,c))
+        if len(queue) <= 0 and fresh_orange <= 0:
+            return 0
+        
         __bfs()
         return ans
         
@@ -86,3 +89,9 @@ print(Solution().orangesRotting(grid = [[2,1,1],[0,1,1],[1,0,1]]))
 
 print(Solution().orangesRotting(grid = [[0,2]]))
 # 0
+
+print(Solution().orangesRotting(grid = [[0]]))
+# 0
+
+print(Solution().orangesRotting(grid = [[1]]))
+# -1
