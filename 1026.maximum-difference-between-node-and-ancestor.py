@@ -15,46 +15,39 @@ class TreeNode:
         self.right = right
 
 """
-・部分問題
-    ・現ノードと最も値の大きいノードと比較して最大値を取る
-    ・現ノードと最も値の小さいノードと比較して最小値を取る
-    ・子がいればdfs
+・部分問題(main)
+    ・dfs呼ぶだけ
+・部分問題(dfs)
+    目的：時点における最大差を返却
+    引数：時点での最大ノード値int、時点での最小ノード値int、node
+    ・最大/最小値の更新を行う
+    ・最大差を求める
+    ・左右の子それぞれいればdfsを呼ぶ
+    ・現時点での最大差/左右の子の結果の中で最も大きい結果を返却
+
 ・例外
-    ・部分問題を破壊する例外はなし
+    部分問題を壊す例外はなし
 
 ・状態
-    ・現ノードにおける最大値：int
-    ・現ノードにおける最小値：int
+    ・max_node_val: int
+    ・min_node_val: int
+    ・diff: int
 
-・状態遷移
-    path_max = max(path_max, node.val)
-    path_min = min(path_min, node.val)
-    ans = max(ans, path_max - path_min)
-    if node.left:
-        dfs(node.left, path_max, path_min)
-    if node.right:
-        dfs(node.right, path_max, path_min)
+・遷移
 
 """
 class Solution:
     def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-        ans = 0
-        def __traversalNode(node: TreeNode, path_max: int, path_min: int):
-            nonlocal ans
-            path_max = max(path_max, node.val)
-            path_min = min(path_min, node.val)
-            ans = max(ans, path_max - path_min)
+        def __dfs(max_node_val: int, min_node_val: int, node: TreeNode):
+            max_node_val = max(max_node_val, node.val)
+            min_node_val = min(min_node_val, node.val)
+            diff = abs(max_node_val - min_node_val)
             if node.left:
-                __traversalNode(node.left, path_max, path_min)
+                diff = max(diff, __dfs(max_node_val, min_node_val, node.left))
             if node.right:
-                __traversalNode(node.right, path_max, path_min)
-            return
-        
-        if root.left:
-            __traversalNode(root.left, root.val, root.val)
-        if root.right:
-            __traversalNode(root.right, root.val, root.val)
-        return ans
+                diff = max(diff, __dfs(max_node_val, min_node_val, node.right))
+            return diff
+        return __dfs(root.val, root.val, root)
         
 # @lc code=end
 
