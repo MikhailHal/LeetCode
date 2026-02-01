@@ -56,23 +56,17 @@ class Solution:
         ans: List[List[int]] = []
         def __bfs():
             nonlocal queue, ans
-            node_list = []
-
-            if len(queue) <= 0:
-                return
-            
             while queue:
-                node_list.append(queue.popleft())
-
-            val_list = []
-            for node in node_list:
-                val_list.append(node.val)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            ans.append(val_list)
-            __bfs()
+                level_size = len(queue)
+                level = []
+                for _ in range(level_size):
+                    node = queue.popleft()
+                    level.append(node.val)
+                    if node.left:
+                        queue.append(node.left)
+                    if node.right:
+                        queue.append(node.right)
+                ans.append(level)
             return
         
         if not root:
