@@ -14,29 +14,73 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+
+"""
+・部分問題(本流)
+    ・rootが空の場合は終了
+    ・queue初期化
+    ・出力リストへ追加
+    ・bfs実施
+
+・部分問題(bfs)
+    目的：現階層のノードの全処理および次階層ノードの追加
+    引数：現ノード(node)
+    ・キューにノードが存在する間下記を実施
+    ・キューからポップして現層のノードを全て保持
+    ・そのノードの値を全てアウトプットに追加しつつ次の階層のノードをキューする
+    ・最後にもう一度bfs
+
+・例外
+    ・二分木が空
+    ・二分木が親のみ
+
+・状態
+    ・出力リスト(output_list)：List[List[int]]
+
+・状態遷移
+    node = queue.pop()
+    curr_level_output = []
+    if node.left:
+        curr_level_output.append(node.left.val)
+        queue.append(node.left)
+    if node.right:
+        curr_level_output.append(node.right.val)
+        queue.append(node.right)
+    output_lits.append(curr_level_output)
+
+
+"""
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if not root:
-            return []
-        queue = deque([root])
-        result = []
+        queue: deque
+        ans: List[List[int]] = []
+        def __bfs():
+            nonlocal queue, ans
+            node_list = []
 
-        while queue:
-            level_size = len(queue)
-            current_level = []
+            if len(queue) <= 0:
+                return
+            
+            while queue:
+                node_list.append(queue.popleft())
 
-            for _ in range(level_size):
-                node = queue.popleft()
-                # 今の層でやりたいこと
-                current_level.append(node.val)
-
-                # 次ループで走査するノードの追加
+            val_list = []
+            for node in node_list:
+                val_list.append(node.val)
                 if node.left:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
-            result.append(current_level)
-        return result
+            ans.append(val_list)
+            __bfs()
+            return
+        
+        if not root:
+            return []
+        queue = deque([root])
+        __bfs()
+        return ans
+
 
 
 # @lc code=end
@@ -74,3 +118,6 @@ print(Solution().levelOrder(tree2))  # [[1]]
 
 tree3 = build_tree([])
 print(Solution().levelOrder(tree3))  # []
+
+tree4 = build_tree([1,2,3,4,None,5,None])
+print(Solution().levelOrder(tree4))  # [[1], [2,3], [4,5]]
